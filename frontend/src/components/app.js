@@ -1,5 +1,7 @@
 import React from "react"
 import Map from "./map"
+// import Prufa from "./prufa"
+import MyFancyComponent from "./myFancyComponent"
 class App extends React.Component {
 
   render() {
@@ -7,6 +9,8 @@ class App extends React.Component {
       <div>
         System Club!
         <Map />
+        {/* <Prufa /> */}
+        <MyFancyComponent />
       </div>
     )
   }
