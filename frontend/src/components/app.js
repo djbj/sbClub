@@ -1,14 +1,13 @@
 import React from "react"
+import Header from "./header"
 import Map from "./map"
-import MyFancyComponent from "./myFancyComponent"
 class App extends React.Component {
 
   render() {
     return (
       <div>
-        System Club!
+        <Header />
         <Map />
-        <MyFancyComponent />
       </div>
     )
   }
