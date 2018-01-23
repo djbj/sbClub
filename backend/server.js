@@ -11,6 +11,7 @@ app.use(bodyParser.json())
 app.use(cors())
 // Connect to MongoDB, on the "products-api" database. If the db doesn't
 // exist, mongo will create it.
+// mongoose.connect("mongodb://localhost/sbStores", { useMongoClient: true })
 mongoose.connect("mongodb://localhost/sbStores", { useMongoClient: true })
 
 // This makes mongo use ES6 promises, instead of its own implementation
@@ -37,16 +38,15 @@ const Store = mongoose.model("Store", {
   RT90y: String
 })
 
-app.get("/stores", (req, res) =>
-  // res.send("This is System Club Server")
-  Store.find().then(store => res.json(store)))
+// get all stores in the db
+app.get("/stores", (req, res) => {
+  Store.find().then(store => res.json(store))
+})
 
-// app.get("/faq", (req, res) => {
-//   Topic.find().then( faq => res.json(faq))
-// })
-
-app.get("/stores", (req, res) => res.send("This should display all stores"))
-
+// get store by store Nr
+app.get("/stores/:storeNr", (req, res) => {
+  Store.find({ Nr: req.params.storeNr }).then(store => res.json(store))
+})
 
 app.listen(8080, () =>
   console.log("Example app listening on port 8080!")
