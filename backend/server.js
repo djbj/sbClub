@@ -21,6 +21,7 @@ mongoose.connection.once("open", () => { console.log("Connected to mongodb") })
 mongoose.connection.on("error", err => { console.error("connection error:", err) })
 
 const Store = mongoose.model("Store", {
+  // id: String,
   xsiType: String,
   Typ: String,
   Nr: String,
@@ -31,14 +32,18 @@ const Store = mongoose.model("Store", {
   Address5: String,
   Telefon: String,
   SokOrd: String,
-  Oppetider: String,
+  Oppettider: String,
   RT90x: String,
   RT90y: String
 })
 
-app.get("/", (req, res) =>
-  res.send("This is System Club Server")
-)
+app.get("/stores", (req, res) =>
+  // res.send("This is System Club Server")
+  Store.find().then(store => res.json(store)))
+
+// app.get("/faq", (req, res) => {
+//   Topic.find().then( faq => res.json(faq))
+// })
 
 app.get("/stores", (req, res) => res.send("This should display all stores"))
 
