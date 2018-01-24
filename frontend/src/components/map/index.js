@@ -1,6 +1,6 @@
 import React from "react"
 import { compose, withProps } from "recompose"
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
+import { withScriptjs, withGoogleMap, GoogleMap, Marker, Rectangle } from "react-google-maps"
 
 const MyMapComponent = compose(
   withProps({
@@ -12,6 +12,7 @@ const MyMapComponent = compose(
   <GoogleMap
     defaultZoom={14}
     defaultCenter={{ lat: 59.3170826, lng: 18.0275315}}
+    clickableIcons={false}
   >
     {props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} onClick={props.onMarkerClick} />}
   </GoogleMap>
@@ -42,7 +43,6 @@ export default class Map extends React.PureComponent {
       <MyMapComponent
         isMarkerShown={this.state.isMarkerShown}
         onMarkerClick={this.handleMarkerClick}
-        
       />
     )
   }
