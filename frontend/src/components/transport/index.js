@@ -13,19 +13,20 @@ class Transport extends React.Component {
     this.setState({
       transport: event.target.value
     });
+    console.log("Transport changed to: " + event.target.value)
   }
 
   render() {
     console.log("Rendering Transport")
     return (
       <div className="transport-container">
-        <button className="transport-walking" value={"walking"} onClick={this.handleClick}>
+        <button className={this.state.transport === "walking" ? "transport-chosen" : "transport-not-chosen"} value={"walking"} onClick={this.handleClick}>
           WALK
         </button>
-        <button className="transport-driving" value={"driving"} onClick={this.handleClick}>
+        <button className={this.state.transport === "driving" ? "transport-chosen" : "transport-not-chosen"} value={"driving"} onClick={this.handleClick}>
           DRIVE
         </button>
-        <button className="transport-train" value={"train"} onClick={console.log(this.state.transport)}>
+        <button className="transport-not-available" value={"train"} >
           TRAIN
         </button>
       </div>

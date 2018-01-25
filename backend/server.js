@@ -40,6 +40,7 @@ const Store = mongoose.model("Store", {
 
 // get all stores in the db
 app.get("/stores", (req, res) => {
+  // console.log("all stores")
   Store.find().then(store => res.json(store))
 })
 
