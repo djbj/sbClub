@@ -1,0 +1,55 @@
+.transport-container {
+  background-color: #4688F1;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 18px;
+}
+
+.transport-walking {
+  margin: 0;
+  padding: 5px;
+  width: 33%;
+  line-height: 2;
+  /* border: 1px solid #FFFFFF; */
+  text-align: center;
+  background-color: #3467D6;
+  color: #FFFFFF;
+}
+.transport-walking:hover {
+  background-color: #3467D6;
+  font-weight: 600;
+}
+
+.transport-driving {
+  margin: 0;
+  padding: 5px;
+  width: 33%;
+  line-height: 2;
+  /* border: 2px solid yellow; */
+  text-align: center;
+  background-color: #4285F4;
+  color: #B4CEFB;
+}
+.transport-driving:hover {
+  background-color: #3467D6;
+  font-weight: 600;
+}
+
+.transport-train {
+  margin: 0;
+  padding: 5px;
+  width: 33%;
+  line-height: 2;
+  /* border: 1px solid #7CAAF8; */
+  text-align: center;
+  background-color: #4285F4;
+  color: #7CAAF8;
+}
+
+.transport-train:hover {
+  background-color: #3467D6;
+  font-weight: 600;
+}

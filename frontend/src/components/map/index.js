@@ -17,7 +17,7 @@ const MyMapComponent = compose(
     defaultCenter={{ lat: props.lat, lng: props.lng}}
     clickableIcons={false}
   >
-    {props.isMarkerShown && <Marker position={{ lat: 59.317082, lng: 18.0275315 }} onClick={props.onMarkerClick} />}
+    {props.isMarkerShown && <Marker position={{ lat: props.lat, lng: props.lng }} onClick={props.onMarkerClick} />}
   </GoogleMap>
 )
 
@@ -34,7 +34,7 @@ export default class Map extends React.PureComponent {
   }
 
   mapError = (err) => {
-    console.warn(`ERROR(${err.code}): ${err.message}`);
+    console.warn(`ERROR(${err.code}): ${err.message}`)
   };
 
   componentDidMount() {
@@ -53,6 +53,7 @@ export default class Map extends React.PureComponent {
   }
 
   render() {
+    console.log("Rendering Map")
     navigator.geolocation.getCurrentPosition(this.mapSuccess, this.mapError)
       // navigator.geolocation.getCurrentPosition(this.mapSuccess, this.mapError, this.options)
       // if ("geolocation" in navigator) {console.log("geolocation is available")}
