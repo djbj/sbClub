@@ -41,20 +41,6 @@ export default class Map extends React.PureComponent {
     }
   }
 
-  mapSuccess = pos => {
-    const crd = pos.coords
-    console.log("Your current position is:")
-    console.log(`Latitude : ${crd.latitude}`)
-    console.log(`Longitude: ${crd.longitude}`)
-    console.log(`More or less ${crd.accuracy} meters.`)
-    console.log("")
-    this.props.appState(crd.latitude, crd.longitude)
-  }
-
-  mapError = err => {
-    console.warn(`ERROR(${err.code}): ${err.message}`)
-  }
-
   componentDidMount() {
     this.delayedShowMarker()
     console.log("Component did mount")
@@ -75,19 +61,14 @@ export default class Map extends React.PureComponent {
     this.delayedShowMarker()
   }
 
-  handleAppStateChange = (lat, lng) => {
-    console.log(`Coords changed to ${lat} and ${lng}`)
-  }
-
   render() {
     console.log("Rendering MyMap")
-    navigator.geolocation.getCurrentPosition(this.mapSuccess, this.mapError)
     return (
       <div>
         <MyMapComponent
           // muna ad nota parseFloat
-          lat={parseFloat(this.props.appLat)}
-          lng={parseFloat(this.props.appLng)}
+          lat={parseFloat(this.props.myLat)}
+          lng={parseFloat(this.props.myLng)}
           isMarkerShown={this.state.isMarkerShown}
           onMarkerClick={this.handleMarkerClick} />
         {/* <MapWithAMarker

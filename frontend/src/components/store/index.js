@@ -6,7 +6,7 @@ class Store extends React.Component {
   handleClick = () => {
     console.clear()
     console.log(`Store clicked is: ${this.props.name} with coords ${this.props.storeLat} ${this.props.storeLng}`)
-    this.props.callToParent(this.props.storeLat, this.props.storeLng)
+    this.props.callToStoreList(this.props.storeLat, this.props.storeLng)
   }
 
   render() {

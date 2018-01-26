@@ -23,7 +23,7 @@ class StoreList extends React.Component {
 
   storeListItemClick = (storeLat, storeLng) => {
     console.log(`StoreListItemClicked ${storeLat} and ${storeLng}`)
-    this.props.setAppStateCoords(storeLat, storeLng)
+    this.props.callToApp(storeLat, storeLng)
   }
 
   render() {
@@ -42,7 +42,7 @@ class StoreList extends React.Component {
             openingHrs={store.Oppetider}
             storeLat={store.Lat}
             storeLng={store.Long}
-            callToParent={this.storeListItemClick} />
+            callToStoreList={this.storeListItemClick} />
         ))}
       </div>
     )
