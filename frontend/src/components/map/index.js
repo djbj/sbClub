@@ -21,7 +21,6 @@ const MyMapComponent = compose(withProps({
     {props.isMarkerShown && <Marker
       position={{ lat: props.lat, lng: props.lng }}
       onClick={props.onMarkerClick} />}
-
   </GoogleMap>)
 
 export default class Map extends React.PureComponent {
@@ -29,8 +28,8 @@ export default class Map extends React.PureComponent {
     super(props)
     this.state = {
       isMarkerShown: false,
-      lat: 40.730610,
-      lng: -73.935242
+      // lat: 40.730610,
+      // lng: -73.935242
       // lat: this.props.appLat,
       // lng: this.props.appLng
     }
@@ -83,6 +82,7 @@ export default class Map extends React.PureComponent {
     navigator.geolocation.getCurrentPosition(this.mapSuccess, this.mapError)
     return (
       <MyMapComponent
+        // muna
         lat={parseFloat(this.props.appLat)}
         lng={parseFloat(this.props.appLng)}
         isMarkerShown={this.state.isMarkerShown}

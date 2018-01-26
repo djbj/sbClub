@@ -1,14 +1,14 @@
 import React from "react"
 import Store from "../store"
 import "./index.css"
-const storeListJson = require("./storesInStockholm.json")
 
+const storeListJson = require("./storesInStockholm.json")
 
 class StoreList extends React.Component {
   constructor(props) {
     super(props)
-      this.state = {
-        storeList: storeListJson
+    this.state = {
+      storeList: storeListJson
     }
   }
   //
@@ -21,7 +21,7 @@ class StoreList extends React.Component {
   //   }
   //
   storeListItemClick = (storeLat, storeLng) => {
-    console.log("StoreListItemClicked " + storeLat + " " + storeLng)
+    console.log(`StoreListItemClicked ${storeLat} and ${storeLng}`)
     this.props.setAppStateCoords(storeLat, storeLng)
   }
 
@@ -29,21 +29,20 @@ class StoreList extends React.Component {
     console.log("Rendering List of Stores")
     return (
       <div className="list-of-stores">
-          {this.state.storeList.map(store => (
-            <Store
-              key={store.Nr}
-              nr={store.Nr}
-              name={store.Namn}
-              address1={store.Address1}
-              address3={store.Address3}
-              address4={store.Address4}
-              keywords={store.SokOrd}
-              openingHrs={store.Oppetider}
-              storeLat={store.Lat}
-              storeLng={store.Long}
-              callToParent={this.storeListItemClick}
-            />
-          ))}
+        {this.state.storeList.map(store => (
+          <Store
+            key={store.Nr}
+            nr={store.Nr}
+            name={store.Namn}
+            address1={store.Address1}
+            address3={store.Address3}
+            address4={store.Address4}
+            keywords={store.SokOrd}
+            openingHrs={store.Oppetider}
+            storeLat={store.Lat}
+            storeLng={store.Long}
+            callToParent={this.storeListItemClick} />
+        ))}
       </div>
     )
   }

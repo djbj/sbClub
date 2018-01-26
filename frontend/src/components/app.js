@@ -5,17 +5,17 @@ import Transport from "./transport"
 import StoreList from "./storeList"
 
 class App extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
-      this.state = {
-        appLat: 0,
-        appLng: 0,
-        isMarkerShown: false
-      }
+    this.state = {
+      appLat: 40.730610,
+      appLng: -73.935242,
+      isMarkerShown: false
+    }
   }
 
   upDateCenter = (storeLat, storeLng) => {
-    console.log("UpdateAppCenter to: " + storeLat + storeLng)
+    console.log(`UpdateApp to: ${storeLat} and ${storeLng}`)
     this.setState({
       appLat: storeLat,
       appLng: storeLng
@@ -27,10 +27,13 @@ class App extends React.Component {
     return (
       <div>
         <Header />
-        <Map appLat={this.state.appLat} appLng={this.state.appLng}/>
+        <Map
+          appLat={this.state.appLat}
+          appLng={this.state.appLng}
+          appState={this.upDateCenter} />
         {/* <Map /> */}
         <Transport />
-        <StoreList setAppStateCoords={this.upDateCenter}/>
+        <StoreList setAppStateCoords={this.upDateCenter} />
       </div>
     )
   }
