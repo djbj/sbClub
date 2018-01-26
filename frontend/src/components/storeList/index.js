@@ -2,24 +2,25 @@ import React from "react"
 import Store from "../store"
 import "./index.css"
 
-const storeListJson = require("./storesInStockholm.json")
+// const storeListJson = require("./storesInStockholm.json")
 
 class StoreList extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      storeList: storeListJson
+      // storeList: storeListJson
+      storeList: []
     }
   }
-  //
-  // componentDidMount() {
-  //     fetch("http://localhost:8080/stores").then(response => (
-  //       response.json()
-  //     )).then(json => {
-  //       this.setState({ storeList: json })
-  //     })
-  //   }
-  //
+
+  componentDidMount() {
+    fetch("http://localhost:8080/stores").then(response => (
+      response.json()
+    )).then(json => {
+      this.setState({ storeList: json })
+    })
+  }
+
   storeListItemClick = (storeLat, storeLng) => {
     console.log(`StoreListItemClicked ${storeLat} and ${storeLng}`)
     this.props.setAppStateCoords(storeLat, storeLng)
