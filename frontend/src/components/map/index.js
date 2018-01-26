@@ -23,6 +23,14 @@ const MyMapComponent = compose(withProps({
       onClick={props.onMarkerClick} />}
   </GoogleMap>)
 
+const MapWithAMarker = withGoogleMap( props =>
+  <GoogleMap
+    defaultZoom={8}
+    defaultCenter={{ lat: -34.397, lng: 150.644 }}>
+    <Marker
+      position={{ lat: -34.397, lng: 150.644 }} />
+  </GoogleMap>)
+
 export default class Map extends React.PureComponent {
   constructor(props) {
     super(props)
@@ -73,12 +81,18 @@ export default class Map extends React.PureComponent {
     console.log("Rendering MyMap")
     navigator.geolocation.getCurrentPosition(this.mapSuccess, this.mapError)
     return (
-      <MyMapComponent
-        // muna ad nota parseFloat
-        lat={parseFloat(this.props.appLat)}
-        lng={parseFloat(this.props.appLng)}
-        isMarkerShown={this.state.isMarkerShown}
-        onMarkerClick={this.handleMarkerClick} />
+      <div>
+        <MyMapComponent
+          // muna ad nota parseFloat
+          lat={parseFloat(this.props.appLat)}
+          lng={parseFloat(this.props.appLng)}
+          isMarkerShown={this.state.isMarkerShown}
+          onMarkerClick={this.handleMarkerClick} />
+          <MapWithAMarker
+              containerElement={<div style={{ height: `400px` }} />}
+              mapElement={<div style={{ height: `100%` }} />}
+          />
+      </div>
     )
   }
 }

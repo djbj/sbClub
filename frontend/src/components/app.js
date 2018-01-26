@@ -32,7 +32,9 @@ class App extends React.Component {
           appState={this.upDateCenter} />
         {/* <Map /> */}
         <Transport />
+        {/* <MapWithMarker /> */}
         <StoreList setAppStateCoords={this.upDateCenter} />
+
       </div>
     )
   }
