@@ -20,6 +20,8 @@ mongoose.Promise = Promise
 mongoose.connection.once("open", () => { console.log("Connected to mongodb") })
 mongoose.connection.on("error", err => { console.error("connection error:", err) })
 
+// Mongodb takes the name in "Store" and changes the collection
+// name to a lowercase plural name of it like "stores"
 const Store = mongoose.model("Store", {
   id: String,
   xsiType: String,
