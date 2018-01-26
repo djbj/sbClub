@@ -27,11 +27,7 @@ export default class Map extends React.PureComponent {
   constructor(props) {
     super(props)
     this.state = {
-      isMarkerShown: false,
-      // lat: 40.730610,
-      // lng: -73.935242
-      // lat: this.props.appLat,
-      // lng: this.props.appLng
+      isMarkerShown: false
     }
   }
 
@@ -42,13 +38,10 @@ export default class Map extends React.PureComponent {
     console.log(`Longitude: ${crd.longitude}`)
     console.log(`More or less ${crd.accuracy} meters.`)
     console.log("")
-    this.setState({
-      lat: crd.latitude,
-      lng: crd.longitude
-    })
+    this.props.appState(crd.latitude, crd.longitude)
   }
 
-  mapError =err => {
+  mapError = err => {
     console.warn(`ERROR(${err.code}): ${err.message}`)
   }
 
@@ -66,7 +59,6 @@ export default class Map extends React.PureComponent {
   handleMarkerClick = () => {
     console.log(`State coords  ${this.state.lat}  ${this.state.lng}`)
     console.log("Hide marker")
-    // console.log(map.getCenter())
     this.setState({
       isMarkerShown: false
     })
@@ -82,7 +74,7 @@ export default class Map extends React.PureComponent {
     navigator.geolocation.getCurrentPosition(this.mapSuccess, this.mapError)
     return (
       <MyMapComponent
-        // muna
+        // muna ad nota parseFloat
         lat={parseFloat(this.props.appLat)}
         lng={parseFloat(this.props.appLng)}
         isMarkerShown={this.state.isMarkerShown}

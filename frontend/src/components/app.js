@@ -8,9 +8,9 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      // map default beginning is in New York
       appLat: 40.730610,
-      appLng: -73.935242,
-      isMarkerShown: false
+      appLng: -73.935242
     }
   }
 
@@ -23,7 +23,6 @@ class App extends React.Component {
   }
 
   render() {
-    // navigator.geolocation.getCurrentPosition(this.mapSuccess, this.mapError)
     return (
       <div>
         <Header />

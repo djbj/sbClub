@@ -2,17 +2,8 @@ import React from "react"
 import "./index.css"
 
 class Store extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      chosen: false
-    }
-  }
 
   handleClick = () => {
-    this.setState({
-      chosen: true
-    })
     console.clear()
     console.log(`Store clicked is: ${this.props.name} with coords ${this.props.storeLat} ${this.props.storeLng}`)
     this.props.callToParent(this.props.storeLat, this.props.storeLng)
