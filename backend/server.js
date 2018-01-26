@@ -9,11 +9,10 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 // Tells express to add the "Access-Control-Allow-Origin" header to allow requests from anywhere.
 app.use(cors())
-// Connect to MongoDB, on the "products-api" database. If the db doesn't
-// exist, mongo will create it.
-// mongoose.connect("mongodb://localhost/sbStores", { useMongoClient: true })
-mongoose.connect("mongodb://localhost/sbStores", { useMongoClient: true })
 
+// mongoose.connect("mongodb://localhost/sbStores", { useMongoClient: true })
+// mongoose.connect("mongodb://localhost/sbStores/store-list", { useMongoClient: true })
+mongoose.connect("mongodb://localhost/sbStores")
 // This makes mongo use ES6 promises, instead of its own implementation
 mongoose.Promise = Promise
 
@@ -22,7 +21,7 @@ mongoose.connection.once("open", () => { console.log("Connected to mongodb") })
 mongoose.connection.on("error", err => { console.error("connection error:", err) })
 
 const Store = mongoose.model("Store", {
-  // id: String,
+  id: String,
   xsiType: String,
   Typ: String,
   Nr: String,
@@ -38,11 +37,18 @@ const Store = mongoose.model("Store", {
   RT90y: String
 })
 
-// get all stores in the db
 app.get("/stores", (req, res) => {
-  // console.log("all stores")
-  Store.find().then(store => res.json(store))
+  Store.find().then(store => {
+    res.json(store)
+  })
 })
+// get all stores in the db
+// app.get("/stores", (req, res) => {
+//   // console.log("all stores")
+//   Store.find().then(allStores => {
+//     res.json(allStores)
+//   )}
+// })
 
 // get store by store Nr
 app.get("/stores/:storeNr", (req, res) => {
@@ -50,5 +56,4 @@ app.get("/stores/:storeNr", (req, res) => {
 })
 
 app.listen(8080, () =>
-  console.log("Example app listening on port 8080!")
-)
+  console.log("Example app listening on port 8080!"))

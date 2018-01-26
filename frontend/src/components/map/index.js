@@ -1,6 +1,6 @@
 import React from "react"
 import { compose, withProps } from "recompose"
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
+import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoBox } from "react-google-maps"
 
 const MyMapComponent = compose(
   withProps({
@@ -12,14 +12,16 @@ const MyMapComponent = compose(
     mapElement: <div style={{ height: `100%` }} />,
   }), withScriptjs, withGoogleMap)((props) =>
   <GoogleMap
-    onClick={console.log("GoogleMap rendering")}
+    onZoomChanged={()=>(console.log("ZoomChanged"))}
     defaultZoom={14}
+    onClick={()=>(console.log("Map clicked"))}
     // defaultCenter={{ lat: 59.3170826, lng: 18.0275315}}
     defaultCenter={{ lat: props.lat, lng: props.lng}}
     center={{lat: props.lat, lng: props.lng}}
     clickableIcons={false}
   >
     {props.isMarkerShown && <Marker position={{ lat: props.lat, lng: props.lng }} onClick={props.onMarkerClick} />}
+
   </GoogleMap>
 )
 
@@ -30,6 +32,8 @@ export default class Map extends React.PureComponent {
         isMarkerShown: false,
         lat: 40.730610,
         lng: -73.935242
+        // lat: this.props.appLat,
+        // lng: this.props.appLng
       }
   }
 
@@ -39,6 +43,7 @@ export default class Map extends React.PureComponent {
     console.log(`Latitude : ${crd.latitude}`)
     console.log(`Longitude: ${crd.longitude}`)
     console.log(`More or less ${crd.accuracy} meters.`)
+    console.log("")
     this.setState({
       lat: crd.latitude,
       lng: crd.longitude
@@ -51,6 +56,7 @@ export default class Map extends React.PureComponent {
 
   componentDidMount() {
     this.delayedShowMarker()
+    console.log("Component did mount")
   }
 
   delayedShowMarker = () => {
@@ -60,24 +66,32 @@ export default class Map extends React.PureComponent {
   }
 
   handleMarkerClick = () => {
-    console.log("State lats" + this.state.lat + this.state.lng)
+    console.log("State coords" + this.state.lat + this.state.lng)
     console.log("Hide marker")
-    this.setState({ isMarkerShown: false })
+    // console.log(map.getCenter())
+    this.setState({
+      isMarkerShown: false,
+      // lat: this.props.appLat,
+      // lng: this.props.appLng
+    })
     this.delayedShowMarker()
   }
 
+  handleAppStateChange = (lat, lng) => {
+    console.log(`Coords changed to ${lat} and ${lng}`)
+  }
+
   render() {
-    console.log("Rendering Map")
+    console.log("Rendering MyMap")
     navigator.geolocation.getCurrentPosition(this.mapSuccess, this.mapError)
-      // navigator.geolocation.getCurrentPosition(this.mapSuccess, this.mapError, this.options)
-      // if ("geolocation" in navigator) {console.log("geolocation is available")}
-      // else {console.log("gelocation is not available")}
+    // this.handleAppStateChange = (this.props.appLat, this.props.appLng)
     return (
       <MyMapComponent
         // lat={59.3170826}
         // lng={18.0275315}
-        lat={this.state.lat}
-        lng={this.state.lng}
+        // onAppStateChange={this.handleAppStateChange}
+        lat={parseFloat(this.props.appLat)}
+        lng={parseFloat(this.props.appLng)}
         isMarkerShown={this.state.isMarkerShown}
         onMarkerClick={this.handleMarkerClick}
       />

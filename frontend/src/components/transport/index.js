@@ -26,8 +26,8 @@ class Transport extends React.Component {
         <button className={this.state.transport === "driving" ? "transport-chosen" : "transport-not-chosen"} value={"driving"} onClick={this.handleClick}>
           DRIVE
         </button>
-        <button className="transport-not-available" value={"train"} >
-          TRAIN
+        <button className="transport-not-available" value={"transit"} >
+          TRANSIT
         </button>
       </div>
     )
