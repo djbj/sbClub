@@ -12,8 +12,11 @@ class App extends React.Component {
       myLat: 59.334591,
       myLng: 18.063240,
       isMyMarkerLocationShown: false,
+      isLocationMarkerShown: false,
       storeLat: 0,
-      storeLng: 0
+      storeLng: 0,
+      isStoreChosen: false
+
     }
   }
   getLocationSuccess = pos => {
@@ -25,7 +28,8 @@ class App extends React.Component {
     console.log("")
     this.setState({
       myLat: crd.latitude,
-      myLng: crd.longitude
+      myLng: crd.longitude,
+      isLocationMarkerShown: true
     })
   }
 
@@ -33,13 +37,14 @@ class App extends React.Component {
     console.warn(`ERROR(${err.code}): ${err.message}`)
   }
 
-  upDateCenter = (latitude, longitude) => {
+  upDateCenter = (latitude, longitude, isChosen) => {
     console.log(`UpdateApp to: ${latitude} and ${longitude}`)
     this.setState({
       myLat: this.state.myLat,
       myLng: this.state.myLng,
       storeLat: latitude,
-      storeLng: longitude
+      storeLng: longitude,
+      isStoreChosen: true
     })
   }
 
@@ -49,10 +54,24 @@ class App extends React.Component {
 
       <div>
         <Header />
-        <Map
+
+        {this.state.isStoreChosen ? (
+          <Map
+            myLat={this.state.storeLat}
+            myLng={this.state.storeLng}
+            appState={this.upDateCenter}
+            />
+        ) : (
+          <Map
+            myLat={this.state.myLat}
+            myLng={this.state.myLng}
+            appState={this.upDateCenter} />
+        )}
+
+        {/* <Map
           myLat={this.state.myLat}
           myLng={this.state.myLng}
-          appState={this.upDateCenter} />
+          appState={this.upDateCenter} /> */}
         <Transport />
         {/* <MapWithMarker /> */}
         <StoreList callToApp={this.upDateCenter} />
