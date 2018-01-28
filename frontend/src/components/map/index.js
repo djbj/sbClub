@@ -1,7 +1,7 @@
 /* global google */
 import React from "react"
 import { compose, withProps, lifecycle } from "recompose"
-import { withScriptjs, withGoogleMap, GoogleMap, Marker, DirectionsRenderer} from "react-google-maps"
+import { withScriptjs, withGoogleMap, GoogleMap, Marker, DirectionsRenderer } from "react-google-maps"
 
 const google = window.google;
 
@@ -30,39 +30,38 @@ const MapWithADirectionsRenderer = compose(
   withProps({
     // googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyBEDZiGba8Eukfh-eDXzlAES3IS-Fh3qVc&v=3.exp&libraries=geometry,drawing,places",
     googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyBEDZiGba8Eukfh-eDXzlAES3IS-Fh3qVc&v=3.exp&libraries=geometry,drawing,places",
-    loadingElement: <div style={{ height: `100%` }} />,
-    containerElement: <div style={{ height: `400px` }} />,
-    mapElement: <div style={{ height: `100%` }} />,
+    loadingElement: <div style={{ height: "100%" }} />,
+    containerElement: <div style={{ height: "400px" }} />,
+    mapElement: <div style={{ height: "100%" }} />
   }),
   withScriptjs,
   withGoogleMap,
   lifecycle({
     componentDidMount() {
-      const DirectionsService = new google.maps.DirectionsService();
-      const DistanceService = new google.maps.DistanceMatrixService();
+      const DirectionsService = new google.maps.DirectionsService()
+      const DistanceService = new google.maps.DistanceMatrixService()
       DirectionsService.route({
         origin: new google.maps.LatLng(41.8507300, -87.6512600),
         destination: new google.maps.LatLng(41.8525800, -87.6514100),
-        travelMode: google.maps.TravelMode.DRIVING,
+        travelMode: google.maps.TravelMode.DRIVING
       }, (result, status) => {
         if (status === google.maps.DirectionsStatus.OK) {
           this.setState({
-            directions: result,
-          });
+            directions: result
+          })
         } else {
-          console.error(`error fetching directions ${result}`);
+          console.error(`error fetching directions ${result}`)
         }
-      });
+      })
     }
   })
 )(props =>
   <GoogleMap
     defaultZoom={7}
-    defaultCenter={new google.maps.LatLng(41.8507300, -87.6512600)}
-  >
+    defaultCenter={new google.maps.LatLng(41.8507300, -87.6512600)}>
     {props.directions && <DirectionsRenderer directions={props.directions} />}
-  </GoogleMap>
-);
+  </GoogleMap>)
+
 // const MapWithAMarker = withGoogleMap(props =>
 //   <GoogleMap
 //     defaultZoom={8}

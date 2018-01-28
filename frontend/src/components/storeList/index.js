@@ -2,6 +2,8 @@ import React from "react"
 import Store from "../store"
 import "./index.css"
 
+const polyline = require("google-polyline")
+
 // const storeListJson = require("./storesInStockholm.json")
 
 class StoreList extends React.Component {
@@ -11,6 +13,14 @@ class StoreList extends React.Component {
       // storeList: storeListJson
       storeList: []
     }
+  }
+
+  getPolyLineCoords = () => {
+    console.log(polyline.encode([
+      // [38.5, -120.2],
+      // [40.7, -120.95],
+      // [43.252, -126.453]
+    ]))
   }
 
   componentDidMount() {
