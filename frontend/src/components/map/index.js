@@ -27,9 +27,10 @@ const MyMapComponent = compose(
       const DirectionsService = new google.maps.DirectionsService();
 
       DirectionsService.route({
-        origin: new google.maps.LatLng(59.317242400000005, 18.028239),
-        destination: new google.maps.LatLng(59.3340599, 18.0628982),
-        travelMode: google.maps.TravelMode.WALKING,
+        origin: new google.maps.LatLng(59.317254999999996, 18.0282943),
+        destination: new google.maps.LatLng(59.334059, 18.0628982),
+        // travelMode: this.props.travel
+        travelMode: google.maps.TravelMode.WALKING
       }, (result, status) => {
         if (status === google.maps.DirectionsStatus.OK) {
           this.setState({
@@ -82,23 +83,6 @@ const MyMapComponent = compose(
       {props.directions && <DirectionsRenderer directions={props.directions} />}
   </GoogleMap>)
 
-
-
-const MapWithAMarker = withGoogleMap(props =>
-  <GoogleMap
-    defaultZoom={14}
-    onZoomChanged={() => (console.log("ZoomChanged"))}
-    onClick={() => (console.log("Map clicked"))}
-    // defaultCenter={{ lat: 59.3170826, lng: 18.0275315 }}
-    defaultCenter={{ lat: props.lat, lng: props.lng }}
-    center={{ lat: props.lat, lng: props.lng }}
-    clickableIcons={false}>
-    <Marker
-      position={{ lat: -34.397, lng: 150.644 }} />
-    <Marker
-      position={{ lat: -35, lng: 150 }} />
-  </GoogleMap>)
-
 export default class Map extends React.PureComponent {
 
   componentDidMount() {
@@ -135,11 +119,14 @@ export default class Map extends React.PureComponent {
           myPosLat={parseFloat(this.props.myLat)}
           myPosLng={parseFloat(this.props.myLng)}
           // isMarkerShown={this.props.isLocationMarkerShown}
-          isMarkerShown={true}
+          isMarkerShown={false}
           onMarkerClick={this.handleMarkerClick}
           allStores={this.props.storeList}
-          myStoreLat={this.props.chosenStoreLat}
-          myStoreLng={this.props.chosenStoreLat} />
+          myStoreLat={parseFloat(this.props.chosenStoreLat)}
+          myStoreLng={parseFloat(this.props.chosenStoreLat)}
+          // travel={this.props.chosenTransport}
+          // travel={"google.maps.TravelMode." + this.props.chosenTransport}
+          />
         {/* <MapWithADirectionsRenderer
           originLat={this.props.myLat}
           originLng={this.props.myLng} /> */}
@@ -154,3 +141,18 @@ export default class Map extends React.PureComponent {
     )
   }
 }
+
+// const MapWithAMarker = withGoogleMap(props =>
+//   <GoogleMap
+//     defaultZoom={14}
+//     onZoomChanged={() => (console.log("ZoomChanged"))}
+//     onClick={() => (console.log("Map clicked"))}
+//     // defaultCenter={{ lat: 59.3170826, lng: 18.0275315 }}
+//     defaultCenter={{ lat: props.lat, lng: props.lng }}
+//     center={{ lat: props.lat, lng: props.lng }}
+//     clickableIcons={false}>
+//     <Marker
+//       position={{ lat: -34.397, lng: 150.644 }} />
+//     <Marker
+//       position={{ lat: -35, lng: 150 }} />
+//   </GoogleMap>)

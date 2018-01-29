@@ -9,6 +9,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      storeList: [],
       // map default beginning is in Central Stockholm
       myLat: 59.334591,
       myLng: 18.063240,
@@ -17,7 +18,7 @@ class App extends React.Component {
       storeLng: 0,
       isStoreChosen: false,
       chosenStore: 0,
-      storeList: []
+      chosenTransport: "WALKING"
     }
   }
   getLocationSuccess = pos => {
@@ -57,6 +58,12 @@ class App extends React.Component {
     console.log("StoreList updated in app")
   }
 
+  upDateTransport = transport => {
+    this.setState ({
+      chosenTransport: transport
+    })
+  }
+
   render() {
     navigator.geolocation.getCurrentPosition(this.getLocationSuccess, this.getMyLocationError)
     return (
@@ -71,7 +78,8 @@ class App extends React.Component {
             chosenStoreLng={this.state.storeLng}
             appState={this.upDateCenter}
             isLocationMarkerShown={this.state.isLocationMarkerShown}
-            storeList={this.state.storeList} />
+            storeList={this.state.storeList}
+            chosenTransport={this.state.chosenTransport}/>
         ) : (
           <Map
             myLat={this.state.myLat}
@@ -80,9 +88,12 @@ class App extends React.Component {
             chosenStoreLng={this.state.storeLng}
             appState={this.upDateCenter}
             isLocationMarkerShown={this.state.isLocationMarkerShown}
-            storeList={this.state.storeList} />
+            storeList={this.state.storeList}
+            chosenTransport={this.state.chosenTransport}/>
         )}
-        {/* <Transport /> */}
+        <Transport
+          sendToAppTransport={this.upDateTransport}
+        />
         <StoreList
           callToApp={this.upDateCenter}
           setAppStoreList={this.upDateStoreList}/>
