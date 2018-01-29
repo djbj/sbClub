@@ -3,6 +3,7 @@ import Header from "./header"
 import Map from "./map"
 import Transport from "./transport"
 import StoreList from "./storeList"
+// import MapWithMarker from "./map-with-marker"
 
 class App extends React.Component {
   constructor(props) {
@@ -11,12 +12,11 @@ class App extends React.Component {
       // map default beginning is in Central Stockholm
       myLat: 59.334591,
       myLng: 18.063240,
-      isMyMarkerLocationShown: false,
       isLocationMarkerShown: false,
       storeLat: 0,
       storeLng: 0,
-      isStoreChosen: false
-
+      isStoreChosen: false,
+      chosenStore: 0
     }
   }
   getLocationSuccess = pos => {
@@ -37,14 +37,15 @@ class App extends React.Component {
     console.warn(`ERROR(${err.code}): ${err.message}`)
   }
 
-  upDateCenter = (latitude, longitude, isChosen) => {
+  upDateCenter = (latitude, longitude, isChosen, storeNr) => {
     console.log(`UpdateApp to: ${latitude} and ${longitude}`)
     this.setState({
       myLat: this.state.myLat,
       myLng: this.state.myLng,
       storeLat: latitude,
       storeLng: longitude,
-      isStoreChosen: true
+      isStoreChosen: true,
+      chosenStore: storeNr
     })
   }
 
@@ -54,32 +55,23 @@ class App extends React.Component {
 
       <div>
         <Header />
-
         {this.state.isStoreChosen ? (
           <Map
             myLat={this.state.storeLat}
             myLng={this.state.storeLng}
             appState={this.upDateCenter}
-            />
+            isLocationMarkerShown={this.state.isLocationMarkerShown} />
         ) : (
           <Map
             myLat={this.state.myLat}
             myLng={this.state.myLng}
-            appState={this.upDateCenter} />
+            appState={this.upDateCenter}
+            isLocationMarkerShown={this.state.isLocationMarkerShown} />
         )}
-
-        {/* <Map
-          myLat={this.state.myLat}
-          myLng={this.state.myLng}
-          appState={this.upDateCenter} /> */}
-        <Transport />
-        {/* <MapWithMarker /> */}
+        {/* <Transport /> */}
         <StoreList callToApp={this.upDateCenter} />
-
       </div>
     )
   }
-
 }
-
 export default App

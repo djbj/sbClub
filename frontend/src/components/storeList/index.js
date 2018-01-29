@@ -31,9 +31,9 @@ class StoreList extends React.Component {
     })
   }
 
-  storeListItemClick = (storeLat, storeLng,isChosen) => {
+  storeListItemClick = (storeLat, storeLng, isChosen, chosenStoreNr) => {
     console.log(`StoreListItemClicked ${storeLat} and ${storeLng}`)
-    this.props.callToApp(storeLat, storeLng, isChosen)
+    this.props.callToApp(storeLat, storeLng, isChosen, chosenStoreNr)
   }
 
   render() {
