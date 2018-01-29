@@ -1,6 +1,6 @@
 import React from "react"
 import { compose, withProps, lifecycle } from "recompose"
-import { withScriptjs, withGoogleMap, GoogleMap, Marker, DirectionsRenderer } from "react-google-maps"
+import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow, DirectionsRenderer } from "react-google-maps"
 
 const google = window.google;
 
@@ -26,7 +26,8 @@ const MyMapComponent = compose(withProps({
       <Marker
         key={store.Nr}
         position={{ lat: parseFloat(store.Lat), lng: parseFloat(store.Long)}}
-        title={`SB ${store.Address1}
+        title={
+        `SB ${store.Address1}
         Open today until ${store.Oppetider}`}
         onClick={() => (console.log(`Store number ${store.Nr} clicked`))}
         // label="SB"
