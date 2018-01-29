@@ -21,11 +21,22 @@ const MyMapComponent = compose(withProps({
     center={{ lat: props.myPosLat, lng: props.myPosLng }}
     clickableIcons={false}>
     {props.allStores.map(store => (
+      console.log(store),
       // console.log(store.Lat, store.Long)
-      <Marker position={{ lat: parseFloat(store.Lat) , lng: parseFloat(store.Long)  }}/>
+      <Marker
+        key={store.Nr}
+        position={{ lat: parseFloat(store.Lat), lng: parseFloat(store.Long)}}
+        title={`SB ${store.Address1}`}
+        onClick={() => (console.log(`Store number ${store.Nr} clicked`))}
+        label={"SB"}
+        // color={"0B7B3E"}
+        // icon={icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))}
+      />
     ))}
     {props.isMarkerShown && <Marker
       position={{ lat: props.myPosLat, lng: props.myPosLng }}
+      title={"Current position"}
+      // label={""}
       onClick={props.onMarkerClick} />}
   </GoogleMap>)
 
