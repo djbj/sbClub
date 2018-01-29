@@ -1,17 +1,47 @@
 import React from "react"
-import { compose, withProps, lifecycle } from "recompose"
+import { compose, withProps, lifecycle, withStateHandlers } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow, DirectionsRenderer } from "react-google-maps"
 
 const google = window.google;
+// const FaAnchor = require("react-icons/lib/fa/anchor")
+const FaAnchor = <p></p>
 
-const MyMapComponent = compose(withProps({
+const MyMapComponent = compose(
+  // withProps({
   // myApiKey = "AIzaSyBEDZiGba8Eukfh-eDXzlAES3IS-Fh3qVc",
   // googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places",
-  googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyBEDZiGba8Eukfh-eDXzlAES3IS-Fh3qVc&v=3.exp&libraries=geometry,drawing,places",
-  loadingElement: <div style={{ height: "100%" }} />,
-  containerElement: <div style={{ height: "400px" }} />,
-  mapElement: <div style={{ height: "100%" }} />
-}), withScriptjs, withGoogleMap)(props =>
+    // googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyBEDZiGba8Eukfh-eDXzlAES3IS-Fh3qVc&v=3.exp&libraries=geometry,drawing,places",
+    // loadingElement: <div style={{ height: "100%" }} />,
+    // containerElement: <div style={{ height: "400px" }} />,
+    // mapElement: <div style={{ height: "100%" }} />
+  // }),
+  withStateHandlers(() => ({
+    isOpen: false
+  }), {
+    onToggleOpen: ({ isOpen }) => () => ({
+      isOpen: !isOpen
+    })
+  }),
+  withScriptjs, withGoogleMap, lifecycle({
+    componentDidMount() {
+      const DirectionsService = new google.maps.DirectionsService();
+
+      DirectionsService.route({
+        origin: new google.maps.LatLng(59.317242400000005, 18.028239),
+        destination: new google.maps.LatLng(59.3340599, 18.0628982),
+        travelMode: google.maps.TravelMode.WALKING,
+      }, (result, status) => {
+        if (status === google.maps.DirectionsStatus.OK) {
+          this.setState({
+            directions: result,
+          });
+        } else {
+          console.error(`error fetching directions ${result}`);
+        }
+      })
+    }
+  })
+)(props =>
   <GoogleMap
     defaultZoom={13}
     onZoomChanged={() => (console.log("ZoomChanged"))}
@@ -21,13 +51,13 @@ const MyMapComponent = compose(withProps({
     center={{ lat: props.myPosLat, lng: props.myPosLng }}
     clickableIcons={false}>
     {props.allStores.map(store => (
-      console.log(store),
+      // console.log(store),
       // console.log(store.Lat, store.Long)
       <Marker
         key={store.Nr}
-        position={{ lat: parseFloat(store.Lat), lng: parseFloat(store.Long)}}
+        position={{ lat: parseFloat(store.Lat), lng: parseFloat(store.Long) }}
         title={
-        `SB ${store.Address1}
+          `SB ${store.Address1}
         Open today until ${store.Oppetider}`}
         onClick={() => (console.log(`Store number ${store.Nr} clicked`))}
         // label="SB"
@@ -35,7 +65,11 @@ const MyMapComponent = compose(withProps({
         // icon={"http://maps.google.com/mapfiles/ms/icons/green-dot.png"}
         icon={"http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|0B7B3E"}
         // color={"0B7B3E"}
-      />
+      >
+        {props.isOpen && <InfoWindow onCloseClick={props.onToggleOpen}>
+          <FaAnchor />
+          TextHere </InfoWindow>}
+      </Marker>
     ))}
     {props.isMarkerShown && <Marker
       position={{ lat: props.myPosLat, lng: props.myPosLng }}
@@ -45,6 +79,7 @@ const MyMapComponent = compose(withProps({
       // icon={"https://static.systembolaget.se/content/assets/images/sb-logotype.svg"}
       // icon="./sbBottle.png"
       onClick={props.onMarkerClick} />}
+      {props.directions && <DirectionsRenderer directions={props.directions} />}
   </GoogleMap>)
 
 const MapWithADirectionsRenderer = compose(withProps({
@@ -126,12 +161,19 @@ export default class Map extends React.PureComponent {
     return (
       <div>
         <MyMapComponent
+          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBEDZiGba8Eukfh-eDXzlAES3IS-Fh3qVc&v=3.exp&libraries=geometry,drawing,places"
+          loadingElement={<div style={{ height: "100%" }} />}
+          containerElement={<div style={{ height: "400px" }} />}
+          mapElement={<div style={{ height: "100%" }} />}
           // muna ad nota parseFloat
           myPosLat={parseFloat(this.props.myLat)}
           myPosLng={parseFloat(this.props.myLng)}
-          isMarkerShown={this.props.isLocationMarkerShown}
+          // isMarkerShown={this.props.isLocationMarkerShown}
+          isMarkerShown={true}
           onMarkerClick={this.handleMarkerClick}
-          allStores={this.props.storeList}/>
+          allStores={this.props.storeList}
+          myStoreLat={this.props.chosenStoreLat}
+          myStoreLng={this.props.chosenStoreLat} />
         {/* <MapWithADirectionsRenderer
           originLat={this.props.myLat}
           originLng={this.props.myLng} /> */}

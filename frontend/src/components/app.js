@@ -67,6 +67,8 @@ class App extends React.Component {
           <Map
             myLat={this.state.storeLat}
             myLng={this.state.storeLng}
+            chosenStoreLat={this.state.storeLat}
+            chosenStoreLng={this.state.storeLng}
             appState={this.upDateCenter}
             isLocationMarkerShown={this.state.isLocationMarkerShown}
             storeList={this.state.storeList} />
@@ -74,6 +76,8 @@ class App extends React.Component {
           <Map
             myLat={this.state.myLat}
             myLng={this.state.myLng}
+            chosenStoreLat={this.state.storeLat}
+            chosenStoreLng={this.state.storeLng}
             appState={this.upDateCenter}
             isLocationMarkerShown={this.state.isLocationMarkerShown}
             storeList={this.state.storeList} />
