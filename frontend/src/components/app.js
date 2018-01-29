@@ -16,7 +16,8 @@ class App extends React.Component {
       storeLat: 0,
       storeLng: 0,
       isStoreChosen: false,
-      chosenStore: 0
+      chosenStore: 0,
+      storeList: []
     }
   }
   getLocationSuccess = pos => {
@@ -49,6 +50,13 @@ class App extends React.Component {
     })
   }
 
+  upDateStoreList = storeItems => {
+    this.setState ({
+      storeList:storeItems
+    })
+    console.log("StoreList updated in app")
+  }
+
   render() {
     navigator.geolocation.getCurrentPosition(this.getLocationSuccess, this.getMyLocationError)
     return (
@@ -69,7 +77,9 @@ class App extends React.Component {
             isLocationMarkerShown={this.state.isLocationMarkerShown} />
         )}
         {/* <Transport /> */}
-        <StoreList callToApp={this.upDateCenter} />
+        <StoreList
+          callToApp={this.upDateCenter}
+          setAppStoreList={this.upDateStoreList}/>
       </div>
     )
   }

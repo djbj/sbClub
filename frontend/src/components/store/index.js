@@ -17,7 +17,12 @@ class Store extends React.Component {
     })
     console.log(`Store clicked is: ${this.props.name} with coords ${this.props.storeLat} ${this.props.storeLng}`)
     console.log(`StoreChosen is ${this.state.chosenStore}`)
-    this.props.callToStoreList(this.props.storeLat, this.props.storeLng, this.state.isStoreChosen, this.state.chosenStore)
+    this.props.callToStoreList(
+      this.props.storeLat,
+      this.props.storeLng,
+      this.state.isStoreChosen,
+      this.state.chosenStore
+    )
   }
 
   render() {

@@ -28,6 +28,7 @@ class StoreList extends React.Component {
       response.json()
     )).then(json => {
       this.setState({ storeList: json })
+      this.props.setAppStoreList(json)
     })
   }
 
