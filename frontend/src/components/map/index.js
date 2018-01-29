@@ -21,7 +21,7 @@ const MyMapComponent = compose(withProps({
     center={{ lat: props.myPosLat, lng: props.myPosLng }}
     clickableIcons={false}>
     {
-      console.log("now i want to mark all the stores here")
+      console.log(props.allStores)
     }
     {props.isMarkerShown && <Marker
       position={{ lat: props.myPosLat, lng: props.myPosLng }}
@@ -111,7 +111,8 @@ export default class Map extends React.PureComponent {
           myPosLat={parseFloat(this.props.myLat)}
           myPosLng={parseFloat(this.props.myLng)}
           isMarkerShown={this.props.isLocationMarkerShown}
-          onMarkerClick={this.handleMarkerClick} />
+          onMarkerClick={this.handleMarkerClick}
+          allStores={this.props.storeList}/>
         {/* <MapWithADirectionsRenderer
           originLat={this.props.myLat}
           originLng={this.props.myLng} /> */}

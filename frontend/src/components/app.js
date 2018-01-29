@@ -68,13 +68,15 @@ class App extends React.Component {
             myLat={this.state.storeLat}
             myLng={this.state.storeLng}
             appState={this.upDateCenter}
-            isLocationMarkerShown={this.state.isLocationMarkerShown} />
+            isLocationMarkerShown={this.state.isLocationMarkerShown}
+            storeList={this.state.storeList} />
         ) : (
           <Map
             myLat={this.state.myLat}
             myLng={this.state.myLng}
             appState={this.upDateCenter}
-            isLocationMarkerShown={this.state.isLocationMarkerShown} />
+            isLocationMarkerShown={this.state.isLocationMarkerShown}
+            storeList={this.state.storeList} />
         )}
         {/* <Transport /> */}
         <StoreList
