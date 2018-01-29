@@ -26,17 +26,23 @@ const MyMapComponent = compose(withProps({
       <Marker
         key={store.Nr}
         position={{ lat: parseFloat(store.Lat), lng: parseFloat(store.Long)}}
-        title={`SB ${store.Address1}`}
+        title={`SB ${store.Address1}
+        Open today until ${store.Oppetider}`}
         onClick={() => (console.log(`Store number ${store.Nr} clicked`))}
-        label={"SB"}
+        // label="SB"
+        // icon="sbBottle.png"
+        // icon={"http://maps.google.com/mapfiles/ms/icons/green-dot.png"}
+        icon={"http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|0B7B3E"}
         // color={"0B7B3E"}
-        // icon={icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))}
       />
     ))}
     {props.isMarkerShown && <Marker
       position={{ lat: props.myPosLat, lng: props.myPosLng }}
-      title={"Current position"}
+      title="Current position"
+      snippet="Population: 4,137,400"
       // label={""}
+      // icon={"https://static.systembolaget.se/content/assets/images/sb-logotype.svg"}
+      // icon="./sbBottle.png"
       onClick={props.onMarkerClick} />}
   </GoogleMap>)
 
