@@ -20,9 +20,10 @@ const MyMapComponent = compose(withProps({
     defaultCenter={{ lat: props.myPosLat, lng: props.myPosLng }}
     center={{ lat: props.myPosLat, lng: props.myPosLng }}
     clickableIcons={false}>
-    {
-      console.log(props.allStores)
-    }
+    {props.allStores.map(store => (
+      // console.log(store.Lat, store.Long)
+      <Marker position={{ lat: parseFloat(store.Lat) , lng: parseFloat(store.Long)  }}/>
+    ))}
     {props.isMarkerShown && <Marker
       position={{ lat: props.myPosLat, lng: props.myPosLng }}
       onClick={props.onMarkerClick} />}
