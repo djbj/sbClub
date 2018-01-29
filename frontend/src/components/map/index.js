@@ -13,19 +13,19 @@ const MyMapComponent = compose(withProps({
   mapElement: <div style={{ height: "100%" }} />
 }), withScriptjs, withGoogleMap)(props =>
   <GoogleMap
-    defaultZoom={14}
+    defaultZoom={13}
     onZoomChanged={() => (console.log("ZoomChanged"))}
     onClick={() => (console.log("Map clicked"))}
     // defaultCenter={{ lat: 59.3170826, lng: 18.0275315}}
     defaultCenter={{ lat: props.myPosLat, lng: props.myPosLng }}
     center={{ lat: props.myPosLat, lng: props.myPosLng }}
     clickableIcons={false}>
+    {
+      console.log("now i want to mark all the stores here")
+    }
     {props.isMarkerShown && <Marker
       position={{ lat: props.myPosLat, lng: props.myPosLng }}
       onClick={props.onMarkerClick} />}
-    {
-    console.log("hello")
-    }
   </GoogleMap>)
 
 const MapWithADirectionsRenderer = compose(withProps({
