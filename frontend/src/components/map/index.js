@@ -4,7 +4,7 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow, DirectionsR
 import sbBottle1 from "./sbBottle1.png"
 const google = window.google;
 // const FaAnchor = require("react-icons/lib/fa/anchor")
-const FaAnchor = <p>Hello</p>
+const FaAnchor = "<p>Hello</p>"
 
 const MyMapComponent = compose(
   withProps({
@@ -27,11 +27,12 @@ const MyMapComponent = compose(
     componentDidMount() {
       const DirectionsService = new google.maps.DirectionsService();
       const travelMode = `google.maps.TravelMode.${this.props.travel}`
+      console.log("Travel is: " + google.maps.TravelMode[this.props.travel])
       DirectionsService.route({
         origin: new google.maps.LatLng(59.317254999999996, 18.0282943),
         destination: new google.maps.LatLng(59.334059, 18.0628982),
         // travelMode: this.props.travel
-        travelMode: google.maps.TravelMode.WALKING
+        travelMode: google.maps.TravelMode[this.props.travel]
         // travelMode
       }, (result, status) => {
         if (status === google.maps.DirectionsStatus.OK) {
@@ -82,7 +83,7 @@ const MyMapComponent = compose(
       // icon={"https://static.systembolaget.se/content/assets/images/sb-logotype.svg"}
       // icon="./sbBottle.png"
       onClick={props.onMarkerClick} />}
-      {props.directions && <DirectionsRenderer directions={props.directions} />}
+    {props.directions && <DirectionsRenderer directions={props.directions} />}
   </GoogleMap>)
 
 export default class Map extends React.PureComponent {
@@ -129,7 +130,7 @@ export default class Map extends React.PureComponent {
           isOpen={true}
           travel={this.props.chosenTransport}
           // travel={"google.maps.TravelMode." + this.props.chosenTransport}
-          />
+        />
         {/* <MapWithADirectionsRenderer
           originLat={this.props.myLat}
           originLng={this.props.myLng} /> */}
