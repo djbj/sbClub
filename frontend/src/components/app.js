@@ -51,22 +51,6 @@ class App extends React.Component {
     })
   }
 
-  getTransportTimes = () => {
-    let url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=" + this.state.myLat + "%2C" + this.state.myPosLng + "&destinations="
-    // url = url + this.state.myLat + "%2C" + this.state.myPosLng
-    // url += "&destinations="
-    let destinationsCoords =""
-    const urlStoresCoords = this.state.storeList.map(store => {
-      console.log("urlAdd")
-      destinationsCoords += store.Lat
-      destinationsCoords += "%2C"
-      destinationsCoords += store.Long
-      destinationsCoords += "%7C"
-    })
-    url = url + urlStoresCoords + "&key=AIzaSyBEDZiGba8Eukfh-eDXzlAES3IS-Fh3qVc&mode=walking"
-    console.log(urlStoresCoords[0])
-  }
-
   upDateStoreList = storeItems => {
     this.setState ({
       storeList:storeItems
@@ -82,7 +66,6 @@ class App extends React.Component {
 
   render() {
     navigator.geolocation.getCurrentPosition(this.getLocationSuccess, this.getMyLocationError)
-    this.getTransportTimes()
     return (
 
       <div>
@@ -112,6 +95,8 @@ class App extends React.Component {
           sendToAppTransport={this.upDateTransport}
         />
         <StoreList
+          myLat={this.state.myLat}
+          myLng={this.state.myLng}
           callToApp={this.upDateCenter}
           setAppStoreList={this.upDateStoreList}/>
       </div>

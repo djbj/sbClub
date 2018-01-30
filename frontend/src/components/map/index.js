@@ -1,7 +1,7 @@
 import React from "react"
 import { compose, withProps, lifecycle, withStateHandlers } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow, DirectionsRenderer } from "react-google-maps"
-
+import sbBottle1 from "./sbBottle1.png"
 const google = window.google;
 // const FaAnchor = require("react-icons/lib/fa/anchor")
 const FaAnchor = <p>Hello</p>
@@ -26,14 +26,13 @@ const MyMapComponent = compose(
   withScriptjs, withGoogleMap, lifecycle({
     componentDidMount() {
       const DirectionsService = new google.maps.DirectionsService();
-      // if (this.props.travel === "WALKING") {
-      //   const TRAVEL = "google.maps.TravelMode.WALKING"
-      // }
+      const travelMode = `google.maps.TravelMode.${this.props.travel}`
       DirectionsService.route({
         origin: new google.maps.LatLng(59.317254999999996, 18.0282943),
         destination: new google.maps.LatLng(59.334059, 18.0628982),
         // travelMode: this.props.travel
-        travelMode: google.maps.TravelMode.TRANSIT
+        travelMode: google.maps.TravelMode.WALKING
+        // travelMode
       }, (result, status) => {
         if (status === google.maps.DirectionsStatus.OK) {
           this.setState({
@@ -56,18 +55,18 @@ const MyMapComponent = compose(
     clickableIcons={false}>
     {props.allStores.map(store => (
       // console.log(store),
-      // console.log(store.Lat, store.Long)
+      // console.log(store.Lat, store.Lng)
       <Marker
         key={store.Nr}
-        position={{ lat: parseFloat(store.Lat), lng: parseFloat(store.Long) }}
+        position={{ lat: parseFloat(store.Lat), lng: parseFloat(store.Lng) }}
         title={
           `SB ${store.Address1}
         Open today until ${store.Oppetider}`}
         onClick={() => (console.log(`Store number ${store.Nr} clicked`))}
         // label="SB"
-        // icon="sbBottle.png"
+        icon={sbBottle1}
         // icon={"http://maps.google.com/mapfiles/ms/icons/green-dot.png"}
-        icon={"http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|0B7B3E"}
+        // icon={"http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|0B7B3E"}
         // color={"0B7B3E"}
       >
         {props.isOpen && <InfoWindow onCloseClick={props.onToggleOpen}>
