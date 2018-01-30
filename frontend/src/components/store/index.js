@@ -33,7 +33,7 @@ class Store extends React.Component {
           <div className="store-box">
             <div className="store-name"><span className="systemet">Systemet</span></div>
             {/* <div className="store-nr"> {this.props.nr} </div> */}
-            <span className="store-address">{this.props.name}{this.props.address1}, {this.props.address3}, {this.props.address4} </span>
+            <span className="store-address">{this.props.name}{this.props.address1}</span>
             <span className="store-coords">Lat: {this.props.storeLat} Lng: {this.props.storeLng} </span>
           </div>
         </a>

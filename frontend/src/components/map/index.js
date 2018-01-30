@@ -4,17 +4,18 @@ import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow, DirectionsR
 
 const google = window.google;
 // const FaAnchor = require("react-icons/lib/fa/anchor")
-const FaAnchor = <p></p>
+const FaAnchor = <p>Hello</p>
 
 const MyMapComponent = compose(
-  // withProps({
+  withProps({
   // myApiKey = "AIzaSyBEDZiGba8Eukfh-eDXzlAES3IS-Fh3qVc",
   // googleMapURL: "https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places",
     // googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyBEDZiGba8Eukfh-eDXzlAES3IS-Fh3qVc&v=3.exp&libraries=geometry,drawing,places",
     // loadingElement: <div style={{ height: "100%" }} />,
     // containerElement: <div style={{ height: "400px" }} />,
-    // mapElement: <div style={{ height: "100%" }} />
-  // }),
+    // mapElement: <div style={{ height: "100%" }} />,
+    // isOpen: false
+  }),
   withStateHandlers(() => ({
     isOpen: false
   }), {
@@ -25,12 +26,14 @@ const MyMapComponent = compose(
   withScriptjs, withGoogleMap, lifecycle({
     componentDidMount() {
       const DirectionsService = new google.maps.DirectionsService();
-
+      // if (this.props.travel === "WALKING") {
+      //   const TRAVEL = "google.maps.TravelMode.WALKING"
+      // }
       DirectionsService.route({
         origin: new google.maps.LatLng(59.317254999999996, 18.0282943),
         destination: new google.maps.LatLng(59.334059, 18.0628982),
         // travelMode: this.props.travel
-        travelMode: google.maps.TravelMode.WALKING
+        travelMode: google.maps.TravelMode.TRANSIT
       }, (result, status) => {
         if (status === google.maps.DirectionsStatus.OK) {
           this.setState({
@@ -68,7 +71,7 @@ const MyMapComponent = compose(
         // color={"0B7B3E"}
       >
         {props.isOpen && <InfoWindow onCloseClick={props.onToggleOpen}>
-          <FaAnchor />
+          {/* <FaAnchor /> */}
           TextHere </InfoWindow>}
       </Marker>
     ))}
@@ -124,7 +127,8 @@ export default class Map extends React.PureComponent {
           allStores={this.props.storeList}
           myStoreLat={parseFloat(this.props.chosenStoreLat)}
           myStoreLng={parseFloat(this.props.chosenStoreLat)}
-          // travel={this.props.chosenTransport}
+          isOpen={true}
+          travel={this.props.chosenTransport}
           // travel={"google.maps.TravelMode." + this.props.chosenTransport}
           />
         {/* <MapWithADirectionsRenderer
