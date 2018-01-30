@@ -18,7 +18,6 @@ class Transport extends React.Component {
   }
 
   render() {
-    console.log("Rendering Transport")
     return (
       <div className="transport-container">
         <button className={this.state.transport === "WALKING" ? "transport-chosen" : "transport-not-chosen"} value={"WALKING"} onClick={this.handleClick}>

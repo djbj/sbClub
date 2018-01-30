@@ -31,7 +31,7 @@ class Store extends React.Component {
       <div className="store" onClick={this.handleClick}>
         <a href="#">
           <div className="store-box">
-            <div className="store-name"><span className="systemet">Systemet</span></div>
+            <div className="store-name"><span className="systemet">Club</span></div>
             {/* <div className="store-nr"> {this.props.nr} </div> */}
             <span className="store-address">{this.props.name}{this.props.address1}</span>
             <span className="store-coords">Lat: {this.props.storeLat} Lng: {this.props.storeLng} </span>

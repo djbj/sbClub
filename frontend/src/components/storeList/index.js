@@ -7,13 +7,6 @@ const polyline = require("google-polyline")
 // const storeListJson = require("./storesInStockholm.json")
 
 class StoreList extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      // storeList: storeListJson
-      storeList: []
-    }
-  }
 
   getPolyLineCoords = () => {
     console.log(polyline.encode([
@@ -30,11 +23,8 @@ class StoreList extends React.Component {
       let destinationsCoords;
       destinationsCoords = store.Lat + "%2C" + store.Lng + "%7C"
       url += destinationsCoords
-      console.log(url)
-      console.log(typeof(destinationsCoords))
       return destinationsCoords
     })
-
     url += "&key=AIzaSyBEDZiGba8Eukfh-eDXzlAES3IS-Fh3qVc&mode=walking"
     console.log(url)
   }
@@ -56,10 +46,9 @@ class StoreList extends React.Component {
   }
 
   render() {
-    console.log("Rendering List of Stores")
     return (
       <div className="list-of-stores">
-        {this.state.storeList.map(store => (
+        {this.props.storeList.map(store => (
           <Store
             key={store.Nr}
             nr={store.Nr}

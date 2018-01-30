@@ -30,15 +30,18 @@ const MyMapComponent = compose(
       console.log("Travel is: " + google.maps.TravelMode[this.props.travel])
       DirectionsService.route({
         origin: new google.maps.LatLng(59.317254999999996, 18.0282943),
+        // origin: new google.maps.LatLng(this.props.myPosLat, this.props.myPosLng),
         destination: new google.maps.LatLng(59.334059, 18.0628982),
+        // destination: new google.maps.LatLng(this.props.myStoreLat, this.props.myStoreLng),
+        // destination: new google.maps.LatLng(59.3081016, 18.0740143),
         // travelMode: this.props.travel
         travelMode: google.maps.TravelMode[this.props.travel]
         // travelMode
       }, (result, status) => {
         if (status === google.maps.DirectionsStatus.OK) {
           this.setState({
-            directions: result,
-          });
+            directions: result
+          })
         } else {
           console.error(`error fetching directions ${result}`);
         }
@@ -66,12 +69,15 @@ const MyMapComponent = compose(
         onClick={() => (console.log(`Store number ${store.Nr} clicked`))}
         // label="SB"
         icon={sbBottle1}
+
         // icon={"http://maps.google.com/mapfiles/ms/icons/green-dot.png"}
         // icon={"http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|0B7B3E"}
         // color={"0B7B3E"}
       >
+        {console.log("props isOpen" + props.isOpen)}
         {props.isOpen && <InfoWindow onCloseClick={props.onToggleOpen}>
           {/* <FaAnchor /> */}
+
           TextHere </InfoWindow>}
       </Marker>
     ))}
@@ -83,7 +89,9 @@ const MyMapComponent = compose(
       // icon={"https://static.systembolaget.se/content/assets/images/sb-logotype.svg"}
       // icon="./sbBottle.png"
       onClick={props.onMarkerClick} />}
+      {console.log("directions are: " + props.directions)}
     {props.directions && <DirectionsRenderer directions={props.directions} />}
+    {console.log(props.directions)}
   </GoogleMap>)
 
 export default class Map extends React.PureComponent {
@@ -95,16 +103,16 @@ export default class Map extends React.PureComponent {
 
   delayedShowMarker = () => {
     setTimeout(() => {
-      // this.setState({ isMarkerShown: true })
+      this.setState({ isMarkerShown: true })
     }, 3000)
   }
 
   handleMarkerClick = () => {
-    // console.log(`State coords  ${this.state.lat}  ${this.state.lng}`)
-    // console.log("Hide marker")
-    // this.setState({
-    //   isMarkerShown: false
-    // })
+    console.log(`State coords  ${this.props.myLat}  ${this.props.myLng}`)
+    console.log("Hide marker")
+    this.setState({
+      isMarkerShown: false
+    })
     console.log("HandleMarkerClick")
     this.delayedShowMarker()
   }
@@ -122,14 +130,14 @@ export default class Map extends React.PureComponent {
           myPosLat={parseFloat(this.props.myLat)}
           myPosLng={parseFloat(this.props.myLng)}
           // isMarkerShown={this.props.isLocationMarkerShown}
-          isMarkerShown={false}
+          // isMarkerShown={false}
           onMarkerClick={this.handleMarkerClick}
           allStores={this.props.storeList}
           myStoreLat={parseFloat(this.props.chosenStoreLat)}
           myStoreLng={parseFloat(this.props.chosenStoreLat)}
-          isOpen={true}
-          travel={this.props.chosenTransport}
-          // travel={"google.maps.TravelMode." + this.props.chosenTransport}
+          // isOpen={true}
+          // travel="TRANSIT"
+          travel={"google.maps.TravelMode." + this.props.chosenTransport}
         />
         {/* <MapWithADirectionsRenderer
           originLat={this.props.myLat}

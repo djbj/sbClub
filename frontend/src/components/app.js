@@ -89,7 +89,7 @@ class App extends React.Component {
             appState={this.upDateCenter}
             isLocationMarkerShown={this.state.isLocationMarkerShown}
             storeList={this.state.storeList}
-            chosenTransport={this.state.chosenTransport}/>
+            chosenTransport={this.state.chosenTransport} />
         )}
         <Transport
           sendToAppTransport={this.upDateTransport}
@@ -98,7 +98,8 @@ class App extends React.Component {
           myLat={this.state.myLat}
           myLng={this.state.myLng}
           callToApp={this.upDateCenter}
-          setAppStoreList={this.upDateStoreList}/>
+          setAppStoreList={this.upDateStoreList}
+        storeList={this.state.storeList}/>
       </div>
     )
   }
