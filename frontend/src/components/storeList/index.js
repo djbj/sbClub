@@ -19,7 +19,7 @@ class StoreList extends React.Component {
   getTransportTimes = () => {
     let url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=" + this.props.myLat + "%2C" + this.props.myLng + "&destinations="
 
-    const urlStoresCoords = this.state.storeList.map(store => {
+    const urlStoresCoords = this.props.storeList.map(store => {
       let destinationsCoords;
       destinationsCoords = store.Lat + "%2C" + store.Lng + "%7C"
       url += destinationsCoords
@@ -29,16 +29,16 @@ class StoreList extends React.Component {
     console.log(url)
   }
 
-  componentDidMount() {
-    fetch("http://localhost:8080/stores").then(response => (
-      response.json()
-    )).then(json => {
-      this.setState({ storeList: json })
-      this.getTransportTimes()
-      this.props.setAppStoreList(json)
-      console.log(json)
-    })
-  }
+  // componentDidMount() {
+  //   fetch("http://localhost:8080/stores").then(response => (
+  //     response.json()
+  //   )).then(json => {
+  //     // this.setState({ storeList: json })
+  //     this.getTransportTimes()
+  //     this.props.setAppStoreList(json)
+  //     console.log(json)
+  //   })
+  // }
 
   storeListItemClick = (storeLat, storeLng, isChosen, chosenStoreNr) => {
     console.log(`StoreListItemClicked ${storeLat} and ${storeLng}`)

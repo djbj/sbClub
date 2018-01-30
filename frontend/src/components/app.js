@@ -21,6 +21,18 @@ class App extends React.Component {
       chosenTransport: "WALKING"
     }
   }
+
+  componentDidMount() {
+    fetch("http://localhost:8080/stores").then(response => (
+      response.json()
+    )).then(json => {
+      this.setState({ storeList: json })
+      // this.getTransportTimes()
+      // this.props.setAppStoreList(json)
+      console.log(json)
+    })
+  }
+
   getLocationSuccess = pos => {
     const crd = pos.coords
     console.log("Your current position is:")
@@ -59,7 +71,7 @@ class App extends React.Component {
   }
 
   upDateTransport = transport => {
-    this.setState ({
+    this.setState({
       chosenTransport: transport
     })
   }
@@ -79,7 +91,7 @@ class App extends React.Component {
             appState={this.upDateCenter}
             isLocationMarkerShown={this.state.isLocationMarkerShown}
             storeList={this.state.storeList}
-            chosenTransport={this.state.chosenTransport}/>
+            chosenTransport={this.state.chosenTransport} />
         ) : (
           <Map
             myLat={this.state.myLat}
@@ -93,13 +105,13 @@ class App extends React.Component {
         )}
         <Transport
           sendToAppTransport={this.upDateTransport}
-        />
+          transport={this.state.chosenTransport}/>
         <StoreList
           myLat={this.state.myLat}
           myLng={this.state.myLng}
           callToApp={this.upDateCenter}
           setAppStoreList={this.upDateStoreList}
-        storeList={this.state.storeList}/>
+          storeList={this.state.storeList} />
       </div>
     )
   }
