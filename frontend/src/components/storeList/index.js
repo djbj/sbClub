@@ -57,7 +57,7 @@ class StoreList extends React.Component {
             address3={store.Address3}
             address4={store.Address4}
             keywords={store.SokOrd}
-            openingHrs={store.Oppetider}
+            openingHrs={store.Oppettider}
             storeLat={store.Lat}
             storeLng={store.Lng}
             callToStoreList={this.storeListItemClick} />

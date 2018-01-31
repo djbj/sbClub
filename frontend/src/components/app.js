@@ -29,7 +29,18 @@ class App extends React.Component {
       this.setState({ storeList: json })
       // this.getTransportTimes()
       // this.props.setAppStoreList(json)
-      console.log(json)
+      return json
+    }).then(json => {
+      json = json.map(store => {
+        let openingHours = store.Oppettider
+        openingHours = openingHours.split(",")
+        openingHours = openingHours.map(item =>
+          item.split(";"))
+        store.Oppettider = openingHours
+        return store
+      })
+      this.setState({ storeList: json})
+      console.log("This is my Json" + json)
     })
   }
 
