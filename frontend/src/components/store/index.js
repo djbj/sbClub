@@ -6,7 +6,9 @@ class Store extends React.Component {
     super(props)
     this.state = {
       isStoreChosen: false,
-      openUntil: "19:00"
+      openFrom: "",
+      openUntil: "",
+      timeToClose: ""
     }
   }
 
@@ -32,7 +34,8 @@ class Store extends React.Component {
   //   // }
   // }
 
-  getOpeningTimes = openHrs => {
+  getOpeningTimes = openingTimes => {
+    // const openingTimes = this.props.openingHrs
     const today = new Date()
     let dd = today.getDate()
     let mm = today.getMonth() + 1 // January is 0!
@@ -44,11 +47,35 @@ class Store extends React.Component {
     if (mm < 10) { mm = `0${mm}` }
     const todayDate = `${yyyy}-${mm}-${dd}`
     // if(openHrs) { console.log("openHrs" + openHrs[0][0]) }
-    // const openHrs.map(day => console.log("This is openingday" + day))
-    console.log("lengd"+openHrs.length)
-    // for (var i = 0; i < openHrs.length; i++) {
-    //   console.log("inArrey")
-    // }
+    // openingTimes.map(day => console.log("This is openingday" + day))
+    // console.log("lengd" + openingTimes.length)
+    for (let i = 0; i < openingTimes.length; i++) {
+      // console.log(openingTimes[i][0])
+      console.log(todayDate + " " + openingTimes[3][0])
+      console.log(typeof(todayDate) + " " + typeof(openingTimes[2][0]))
+      console.log(todayDate==openingTimes[2][0] + " " + todayDate===openingTimes[2][0])
+      if (todayDate === openingTimes[i][0]) {
+        console.log("Open until:" + openingTimes[i][2])
+        this.setState({
+          openFrom: openingTimes[i][1],
+          openUntil: openingTimes[i][2]
+        })
+        return openingTimes[i][2]
+      } else {
+        return "Could not find opening times"
+      }
+    }
+  }
+
+  getTimeToClose = () => {
+    const d = new Date()
+    // let closingTime = this.state.timeToClose
+    let closingTime = this.state.openUntil
+    closingTime = closingTime.split(":")
+    const minutesToClosing = ((-d + d.setHours(closingTime[0], closingTime[1], 0, 0)) / 6e4)
+    this.setState({
+      timeToClose: minutesToClosing
+    })
   }
 
   handleClick = () => {
@@ -67,20 +94,21 @@ class Store extends React.Component {
     )
   }
 
-
   render() {
     // console.log("Rendering Store")
     // console.log(this.props.openingHrs)
-    // this.getOpeningTimes(this.props.openingHrs)
+    this.getTimeToClose()
+    this.getOpeningTimes(this.props.openingHrs)
     return (
       <div className="store" onClick={this.handleClick}>
         <a href="#">
           <div className="store-box">
             <div className="store-name"><span className="systemet">Club</span></div>
             {/* <div className="store-nr"> {this.props.nr} </div> */}
-            <span className="store-address">{this.props.name} {this.props.address1}</span>
+            <span className="store-address">{this.props.name} {this.props.address1} </span>
             <span className="store-coords">Lat: {this.props.storeLat} Lng: {this.props.storeLng} </span>
-            <span className="store-hrs">Open Today Until: {this.state.openUntil}</span>
+            <span className="store-hrs">Open Today Until: {this.state.openUntil} </span>
+            <span className="closes-in">Closes in: {this.state.timeToClose} </span>
           </div>
         </a>
       </div>

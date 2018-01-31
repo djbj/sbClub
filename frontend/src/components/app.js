@@ -39,7 +39,7 @@ class App extends React.Component {
         store.Oppettider = openingHours
         return store
       })
-      this.setState({ storeList: json})
+      // this.setState({ storeList: json})
     })
   }
 
