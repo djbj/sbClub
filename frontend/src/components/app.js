@@ -39,8 +39,21 @@ class App extends React.Component {
         store.Oppettider = openingHours
         return store
       })
-      // this.setState({ storeList: json})
+      this.setState({ storeList: json })
     })
+  }
+
+  getTransportTimes = () => {
+    let url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=" + this.props.myLat + "%2C" + this.props.myLng + "&destinations="
+
+    const urlStoresCoords = this.props.storeList.map(store => {
+      let destinationsCoords;
+      destinationsCoords = store.Lat + "%2C" + store.Lng + "%7C"
+      url += destinationsCoords
+      return destinationsCoords
+    })
+    url += "&key=AIzaSyBEDZiGba8Eukfh-eDXzlAES3IS-Fh3qVc&mode=walking"
+    console.log(url)
   }
 
   getLocationSuccess = pos => {

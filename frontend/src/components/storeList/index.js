@@ -46,6 +46,7 @@ class StoreList extends React.Component {
   }
 
   render() {
+    // this.getTransportTimes()
     return (
       <div className="list-of-stores">
         {this.props.storeList.map(store => (
