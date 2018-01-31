@@ -74,7 +74,7 @@ const MyMapComponent = compose(
         // icon={"http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|0B7B3E"}
         // color={"0B7B3E"}
       >
-        {console.log("props isOpen" + props.isOpen)}
+        {/* {console.log("props isOpen" + props.isOpen)} */}
         {props.isOpen && <InfoWindow onCloseClick={props.onToggleOpen}>
           {/* <FaAnchor /> */}
 

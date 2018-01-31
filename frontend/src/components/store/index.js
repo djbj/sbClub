@@ -5,9 +5,50 @@ class Store extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      isStoreChosen: false
+      isStoreChosen: false,
+      // openHrs: ""
     }
   }
+
+  componentDidMount() {
+    const today = new Date()
+    let dd = today.getDate()
+    let mm = today.getMonth() + 1 // January is 0!
+    const yyyy = today.getFullYear()
+    // const currentTime = today.getHours() + ":" + today.getMinutes()
+    // const currentTime = `${today.getHours()}:${today.getMinutes()}`
+    // console.log(currentTime)
+    if (dd < 10) { dd = `0${dd}` }
+    if (mm < 10) { mm = `0${mm}` }
+    const todayDate = `${yyyy}-${mm}-${dd}`
+    // if(openHrs) { console.log("openHrs" + openHrs[0][0]) }
+    // const openHrs.map(day => console.log("This is openingday" + day))
+    // console.log("lengd"+openHrs.length)
+    const openHrs = this.props.openingHrs
+    console.log("OpeningHrsLength" + openHrs.length)
+    // for (var i = 0; i < openHrs.length; i++) {
+    //   console.log("inArrey")
+    // }
+  }
+
+//   getOpeningTimes = openHrs => {
+//     const today = new Date()
+//     let dd = today.getDate()
+//     let mm = today.getMonth() + 1 // January is 0!
+//     const yyyy = today.getFullYear()
+//     // const currentTime = today.getHours() + ":" + today.getMinutes()
+//     // const currentTime = `${today.getHours()}:${today.getMinutes()}`
+//     // console.log(currentTime)
+//     if (dd < 10) { dd = `0${dd}` }
+//     if (mm < 10) { mm = `0${mm}` }
+//     const todayDate = `${yyyy}-${mm}-${dd}`
+//     // if(openHrs) { console.log("openHrs" + openHrs[0][0]) }
+//     // const openHrs.map(day => console.log("This is openingday" + day))
+//     // console.log("lengd"+openHrs.length)
+//     for (var i = 0; i < openHrs.length; i++) {
+//       console.log("inArrey")
+//     }
+// }
 
   handleClick = () => {
     console.clear()
@@ -25,9 +66,11 @@ class Store extends React.Component {
     )
   }
 
+
   render() {
-    console.log("Rendering Store")
-    console.log(this.props.openingHrs)
+    // console.log("Rendering Store")
+    // console.log(this.props.openingHrs)
+    // this.getOpeningTimes(this.props.openingHrs)
     return (
       <div className="store" onClick={this.handleClick}>
         <a href="#">

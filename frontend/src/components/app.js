@@ -40,7 +40,6 @@ class App extends React.Component {
         return store
       })
       this.setState({ storeList: json})
-      console.log("This is my Json" + json)
     })
   }
 
