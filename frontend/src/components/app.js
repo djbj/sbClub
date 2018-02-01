@@ -25,22 +25,25 @@ class App extends React.Component {
   componentDidMount() {
     fetch("http://localhost:8080/stores").then(response => (
       response.json()
-    )).then(json => {
-      this.setState({ storeList: json })
+    ))
+      // .then(json => {
+      // this.setState({ storeList: json })
       // this.getTransportTimes()
       // this.props.setAppStoreList(json)
-      return json
-    }).then(json => {
-      json = json.map(store => {
-        let openingHours = store.Oppettider
-        openingHours = openingHours.split(",")
-        openingHours = openingHours.map(item =>
-          item.split(";"))
-        store.Oppettider = openingHours
-        return store
-      })
-      this.setState({ storeList: json })
-    })
+      // return json
+    // })
+      .then(json => {
+        json = json.map(store => {
+          let openingHours = store.Oppettider
+          openingHours = openingHours.split(",")
+          openingHours = openingHours.map(item =>
+            item.split(";"))
+          store.Oppettider = openingHours
+          return store
+        })
+        this.setState({ storeList: json })
+        return json
+      }).then((json)=>console.log(json))
   }
 
   getTransportTimes = () => {
