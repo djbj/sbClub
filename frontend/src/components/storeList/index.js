@@ -36,6 +36,11 @@ class StoreList extends React.Component {
       //   mode: "no-cors",
       //   cache: "default" }
       // fetch(url, { mode: "no-cors" }).then(response => { response.json() }).then(response => console.log(response))
+      const stores = this.props.storeList
+      // stores.forEach(store => this.)
+
+
+
     }
   }
 

@@ -24,21 +24,25 @@ const MyMapComponent = compose(
     })
   }),
   withScriptjs, withGoogleMap, lifecycle({
-    componentDidMount() {
-      const DirectionsService = new google.maps.DirectionsService();
+    componentWillMount() {
+      const DirectionsService = new google.maps.DirectionsService()
       const travelMode = `google.maps.TravelMode.${this.props.travel}`
+      console.log("TravelMode is " + travelMode)
+      console.log("This.props.travel " + this.props.travel)
       console.log("Travel is: " + google.maps.TravelMode[this.props.travel])
       DirectionsService.route({
-        origin: new google.maps.LatLng(59.317254999999996, 18.0282943),
-        // origin: new google.maps.LatLng(this.props.myPosLat, this.props.myPosLng),
-        destination: new google.maps.LatLng(59.334059, 18.0628982),
+        // origin: new google.maps.LatLng(59.317254999999996, 18.0282943),
+        origin: new google.maps.LatLng(this.props.myPosLat, this.props.myPosLng),
+        destination: new google.maps.LatLng(59.298469, 18.0790565),
         // destination: new google.maps.LatLng(this.props.myStoreLat, this.props.myStoreLng),
         // destination: new google.maps.LatLng(59.3081016, 18.0740143),
         // travelMode: this.props.travel
-        travelMode: google.maps.TravelMode[this.props.travel]
+        // travelMode: google.maps.TravelMode[this.props.travel]
+        travelMode: google.maps.TravelMode.WALKING
         // travelMode
       }, (result, status) => {
         if (status === google.maps.DirectionsStatus.OK) {
+          console.log("Directions: " + result)
           this.setState({
             directions: result
           })
@@ -90,7 +94,8 @@ const MyMapComponent = compose(
       // icon="./sbBottle.png"
       onClick={props.onMarkerClick} />}
       {console.log("directions are: " + props.directions)}
-    {props.directions && <DirectionsRenderer directions={props.directions} />}
+    {props.directions && <DirectionsRenderer directions={props.directions} zoom="13" />}
+
     {console.log(props.directions)}
   </GoogleMap>)
 

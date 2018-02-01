@@ -1,5 +1,9 @@
 import React from "react"
+// import { DirectionsRenderer } from "react-google-maps"
+import { withScriptjs, withGoogleMap, GoogleMap, Marker, InfoWindow, DirectionsRenderer } from "react-google-maps"
 import "./index.css"
+const google = window.google;
+
 
 class Store extends React.Component {
   constructor(props) {
@@ -8,7 +12,7 @@ class Store extends React.Component {
       isStoreChosen: false,
       openingTimes: "",
       timeToClose: "",
-      travelTime: ""
+      travelTime: "",
     }
   }
 
@@ -51,7 +55,21 @@ class Store extends React.Component {
   }
 
   handleClick = () => {
-    console.clear()
+    const DirectionsService = new google.maps.DirectionsService()
+    // const travelMode = `google.maps.TravelMode.${this.props.travel}`
+    DirectionsService.route({
+      origin: new google.maps.LatLng(this.props.myLat, this.props.myLng),
+      destination: new google.maps.LatLng(this.props.storeLat, this.props.storeLng),
+      travelMode: google.maps.TravelMode.WALKING
+    }, (result, status) => {
+      if (status === google.maps.DirectionsStatus.OK) {
+        this.setState({
+          directions: result
+        })
+      } else {
+        console.error(`error fetching directions ${result}`);
+      }
+    })
     this.setState({
       isStoreChosen: !this.state.isStoreChosen,
       chosenStore: this.props.nr
