@@ -4,8 +4,6 @@ import "./index.css"
 
 const polyline = require("google-polyline")
 
-// const storeListJson = require("./storesInStockholm.json")
-
 class StoreList extends React.Component {
 
   getPolyLineCoords = () => {
@@ -17,32 +15,22 @@ class StoreList extends React.Component {
   }
 
   getTransportTimes = () => {
+    if(this.props.myLat != "59.334591") {
     let url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=" + this.props.myLat + "%2C" + this.props.myLng + "&destinations="
 
     const urlStoresCoords = this.props.storeList.map(store => {
-      let destinationsCoords;
+      let destinationsCoords
       destinationsCoords = store.Lat + "%2C" + store.Lng + "%7C"
       url += destinationsCoords
       return destinationsCoords
     })
-    url += "&key=AIzaSyBEDZiGba8Eukfh-eDXzlAES3IS-Fh3qVc&mode=walking"
+    // url += "&key=AIzaSyBEDZiGba8Eukfh-eDXzlAES3IS-Fh3qVc&mode=walking"
+    let travelModeInUrl = this.props.travel
+    travelModeInUrl = travelModeInUrl.toLowerCase()
+    url += `&key=AIzaSyBEDZiGba8Eukfh-eDXzlAES3IS-Fh3qVc&mode=${travelModeInUrl}`
     console.log(url)
-    setTimeout(()=>{ console.log(url); }, 3000)
-
+    }
   }
-
-  // getTransportTimes = () => {
-  //   let url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=" + this.props.myLat + "%2C" + this.props.myLng + "&destinations="
-  //
-  //   const urlStoresCoords = this.props.storeList.map(store => {
-  //     let destinationsCoords;
-  //     destinationsCoords = store.Lat + "%2C" + store.Lng + "%7C"
-  //     url += destinationsCoords
-  //     return destinationsCoords
-  //   })
-  //   url += "&key=AIzaSyBEDZiGba8Eukfh-eDXzlAES3IS-Fh3qVc&mode=walking"
-  //   console.log(url)
-  // }
 
   storeListItemClick = (storeLat, storeLng, isChosen, chosenStoreNr) => {
     // console.log(`StoreListItemClicked ${storeLat} and ${storeLng}`)
@@ -50,7 +38,7 @@ class StoreList extends React.Component {
   }
 
   render() {
-    // this.getTransportTimes()
+    this.getTransportTimes()
     return (
       <div className="list-of-stores">
         {this.props.storeList.map(store => (

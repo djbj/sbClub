@@ -8,6 +8,7 @@ import StoreList from "./storeList"
 class App extends React.Component {
   constructor(props) {
     super(props)
+    navigator.geolocation.getCurrentPosition(this.getLocationSuccess, this.getMyLocationError)
     this.state = {
       storeList: [],
       // map default beginning is in Central Stockholm
@@ -23,37 +24,42 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    fetch("http://localhost:8080/stores").then(response => (
-      response.json()
-    ))
-      // .then(json => {
-      // this.setState({ storeList: json })
-      // this.getTransportTimes()
-      // this.props.setAppStoreList(json)
-      // return json
-    // })
-      .then(json => {
-        json = json.map(store => {
-          let openingHours = store.Oppettider
-          openingHours = openingHours.split(",")
-          openingHours = openingHours.map(item =>
-            item.split(";"))
-          store.Oppettider = openingHours
-          return store
-        })
-        this.setState({ storeList: json })
-        return json
-      }).then(json => {
-        let url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=" + this.state.myLat + "%2C" + this.state.myLng + "&destinations="
-        const urlStoresCoords = json.map(store => {
-          let destinationsCoords;
-          destinationsCoords = store.Lat + "%2C" + store.Lng + "%7C"
-          url += destinationsCoords
-          return destinationsCoords
-        })
-        url += "&key=AIzaSyBEDZiGba8Eukfh-eDXzlAES3IS-Fh3qVc&mode=walking"
-        console.log(url)
+    fetch("http://localhost:8080/stores").then(response => {
+
+      console.log("promise1")
+      return response.json()
+    }).then(json => {
+      json = json.map(store => {
+        let openingHours = store.Oppettider
+        openingHours = openingHours.split(",")
+        openingHours = openingHours.map(item =>
+          item.split(";"))
+        store.Oppettider = openingHours
+        return store
       })
+      this.setState({ storeList: json })
+      console.log("promise2")
+      return json
+    })
+    // .then(json => {
+    //   let url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=" + this.state.myLat + "%2C" + this.state.myLng + "&destinations="
+    //   const urlStoresCoords = json.map(store => {
+    //     let destinationsCoords;
+    //     destinationsCoords = store.Lat + "%2C" + store.Lng + "%7C"
+    //     url += destinationsCoords
+    //     return destinationsCoords
+    //   })
+    //   url += "&key=AIzaSyBEDZiGba8Eukfh-eDXzlAES3IS-Fh3qVc&mode=walking"
+    //   console.log("promise3")
+    //   console.log(url)
+    //   return url
+    // })
+    // .then(url => {
+    //   fetch(url).then(response => {
+    //     console.log("REsponse is: " + response)
+    //   })
+    //   console.log("promise4")
+    // })
   }
 
   getTransportTimes = () => {
@@ -113,7 +119,7 @@ class App extends React.Component {
   }
 
   render() {
-    navigator.geolocation.getCurrentPosition(this.getLocationSuccess, this.getMyLocationError)
+    // navigator.geolocation.getCurrentPosition(this.getLocationSuccess, this.getMyLocationError)
     return (
 
       <div>
@@ -147,7 +153,9 @@ class App extends React.Component {
           myLng={this.state.myLng}
           callToApp={this.upDateCenter}
           setAppStoreList={this.upDateStoreList}
-          storeList={this.state.storeList} />
+          storeList={this.state.storeList}
+          travel={this.state.chosenTransport} 
+        />
       </div>
     )
   }

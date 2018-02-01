@@ -22,7 +22,6 @@ class Store extends React.Component {
   }
 
   getOpeningTimes = openingTimes => {
-    console.log("openingtimes")
     const today = new Date()
     let dd = today.getDate()
     let mm = today.getMonth() + 1 // January is 0!
@@ -37,7 +36,6 @@ class Store extends React.Component {
     for (let i = 0; i < openingTimes.length; i++) {
       if (todayDate.localeCompare(openingTimes[i][0]) === 0) {
       // if (todayDate === openingTimes[i][0]) {
-        console.log("opening " + openingTimes[i][1])
         return openingTimes[i]
       }
     }
@@ -49,7 +47,6 @@ class Store extends React.Component {
     let closingTime = openingTimes[2]
     closingTime = closingTime.split(":")
     const minutesToClosing = ((-d + d.setHours(closingTime[0], closingTime[1], 0, 0)) / 6e4)
-    console.log("Minutes to closing " + minutesToClosing)
     return minutesToClosing
   }
 
