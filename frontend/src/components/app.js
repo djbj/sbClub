@@ -43,7 +43,17 @@ class App extends React.Component {
         })
         this.setState({ storeList: json })
         return json
-      }).then((json)=>console.log(json))
+      }).then(json => {
+        let url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=" + this.state.myLat + "%2C" + this.state.myLng + "&destinations="
+        const urlStoresCoords = json.map(store => {
+          let destinationsCoords;
+          destinationsCoords = store.Lat + "%2C" + store.Lng + "%7C"
+          url += destinationsCoords
+          return destinationsCoords
+        })
+        url += "&key=AIzaSyBEDZiGba8Eukfh-eDXzlAES3IS-Fh3qVc&mode=walking"
+        console.log(url)
+      })
   }
 
   getTransportTimes = () => {

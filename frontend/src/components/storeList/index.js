@@ -27,17 +27,21 @@ class StoreList extends React.Component {
     })
     url += "&key=AIzaSyBEDZiGba8Eukfh-eDXzlAES3IS-Fh3qVc&mode=walking"
     console.log(url)
+    setTimeout(()=>{ console.log(url); }, 3000)
+
   }
 
-  // componentDidMount() {
-  //   fetch("http://localhost:8080/stores").then(response => (
-  //     response.json()
-  //   )).then(json => {
-  //     // this.setState({ storeList: json })
-  //     this.getTransportTimes()
-  //     this.props.setAppStoreList(json)
-  //     console.log(json)
+  // getTransportTimes = () => {
+  //   let url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=" + this.props.myLat + "%2C" + this.props.myLng + "&destinations="
+  //
+  //   const urlStoresCoords = this.props.storeList.map(store => {
+  //     let destinationsCoords;
+  //     destinationsCoords = store.Lat + "%2C" + store.Lng + "%7C"
+  //     url += destinationsCoords
+  //     return destinationsCoords
   //   })
+  //   url += "&key=AIzaSyBEDZiGba8Eukfh-eDXzlAES3IS-Fh3qVc&mode=walking"
+  //   console.log(url)
   // }
 
   storeListItemClick = (storeLat, storeLng, isChosen, chosenStoreNr) => {
