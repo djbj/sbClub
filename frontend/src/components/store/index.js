@@ -70,8 +70,9 @@ class Store extends React.Component {
   }
 
   render() {
-    const openToday = this.getOpeningTimes(this.props.openingHrs)
-    const closingIn = this.getTimeToClose(openToday)
+
+    // const openToday = this.getOpeningTimes(this.props.openingHrs)
+    // const closingIn = this.getTimeToClose(openToday)
     // const openToday = ["","","00:00"]
     return (
       <div className="store" onClick={this.handleClick}>
@@ -83,11 +84,11 @@ class Store extends React.Component {
             {/* <span className="store-coords">
             Lat: {this.props.storeLat}
             Lng: {this.props.storeLng}</span> */}
-            {openToday[2] === "00:00" ? (
+            {this.state.openingTimes[2] === "00:00" ? (
               <span className="store-hrs">Closed Today</span>
             ) : (
               <div>
-                <span className="store-hrs">Open Today Until: {openToday[2]} </span>
+                <span className="store-hrs">Open Today Until: {this.state.openingTimes[2]} </span>
                 <span className="closes-in">Closes in: {this.state.timeToClose} </span>
               </div>
             )}
