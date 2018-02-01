@@ -14,10 +14,10 @@ class Store extends React.Component {
 
   componentWillMount() {
     const setOpeningTimes = this.getOpeningTimes(this.props.openingHrs)
-    // const setTimeToClose = this.getTimeToClose()
+    const setTimeToClose = this.getTimeToClose(setOpeningTimes)
     this.setState({
       openingTimes: setOpeningTimes,
-      // timeToClose: setTimeToClose
+      timeToClose: setTimeToClose
     })
   }
 
@@ -43,15 +43,14 @@ class Store extends React.Component {
     }
   }
 
-  getTimeToClose = () => {
+  getTimeToClose = openingTimes => {
     const d = new Date()
     // let closingTime = this.state.timeToClose
-    let closingTime = this.state.openingTimes[2]
+    let closingTime = openingTimes[2]
     closingTime = closingTime.split(":")
     const minutesToClosing = ((-d + d.setHours(closingTime[0], closingTime[1], 0, 0)) / 6e4)
-    this.setState({
-      timeToClose: minutesToClosing
-    })
+    console.log("Minutes to closing " + minutesToClosing)
+    return minutesToClosing
   }
 
   handleClick = () => {
@@ -71,8 +70,8 @@ class Store extends React.Component {
   }
 
   render() {
-    // this.getTimeToClose()
     const openToday = this.getOpeningTimes(this.props.openingHrs)
+    const closingIn = this.getTimeToClose(openToday)
     // const openToday = ["","","00:00"]
     return (
       <div className="store" onClick={this.handleClick}>
@@ -81,13 +80,15 @@ class Store extends React.Component {
             <div className="store-name"><span className="systemet">Club</span></div>
             {/* <div className="store-nr"> {this.props.nr} </div> */}
             <span className="store-address">{this.props.name} {this.props.address1} </span>
-            {/* <span className="store-coords">Lat: {this.props.storeLat} Lng: {this.props.storeLng} </span> */}
-            {openToday[2]==="00:00" ? (
+            {/* <span className="store-coords">
+            Lat: {this.props.storeLat}
+            Lng: {this.props.storeLng}</span> */}
+            {openToday[2] === "00:00" ? (
               <span className="store-hrs">Closed Today</span>
             ) : (
               <div>
                 <span className="store-hrs">Open Today Until: {openToday[2]} </span>
-                <span className="closes-in">Closes in: {this.props.timeToClose} </span>
+                <span className="closes-in">Closes in: {this.state.timeToClose} </span>
               </div>
             )}
             {/* <span className="store-hrs">Open Today Until: {openToday[2]} </span> */}
