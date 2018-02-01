@@ -15,20 +15,27 @@ class StoreList extends React.Component {
   }
 
   getTransportTimes = () => {
-    if(this.props.myLat != "59.334591") {
-    let url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=" + this.props.myLat + "%2C" + this.props.myLng + "&destinations="
+    if (this.props.myLat !== "59.334591") {
+      let url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=metric&origins=" + this.props.myLat + "%2C" + this.props.myLng + "&destinations="
 
-    const urlStoresCoords = this.props.storeList.map(store => {
-      let destinationsCoords
-      destinationsCoords = store.Lat + "%2C" + store.Lng + "%7C"
-      url += destinationsCoords
-      return destinationsCoords
-    })
-    // url += "&key=AIzaSyBEDZiGba8Eukfh-eDXzlAES3IS-Fh3qVc&mode=walking"
-    let travelModeInUrl = this.props.travel
-    travelModeInUrl = travelModeInUrl.toLowerCase()
-    url += `&key=AIzaSyBEDZiGba8Eukfh-eDXzlAES3IS-Fh3qVc&mode=${travelModeInUrl}`
-    console.log(url)
+      const urlStoresCoords = this.props.storeList.map(store => {
+        let destinationsCoords
+        destinationsCoords = store.Lat + "%2C" + store.Lng + "%7C"
+        url += destinationsCoords
+        return destinationsCoords
+      })
+      // url += "&key=AIzaSyBEDZiGba8Eukfh-eDXzlAES3IS-Fh3qVc&mode=walking"
+      let travelModeInUrl = this.props.travel
+      travelModeInUrl = travelModeInUrl.toLowerCase()
+      url += `&key=AIzaSyBEDZiGba8Eukfh-eDXzlAES3IS-Fh3qVc&mode=${travelModeInUrl}`
+      console.log(url)
+      const myHeaders = new Headers()
+      // const myInit = {
+      //   method: "GET",
+      //   headers: myHeaders,
+      //   mode: "no-cors",
+      //   cache: "default" }
+      // fetch(url, { mode: "no-cors" }).then(response => { response.json() }).then(response => console.log(response))
     }
   }
 
